@@ -1,0 +1,1 @@
+sudo apt-get install build-essential scons swig zlib1g-dev m4 autoconf libtool mercurial python-dev libgoogle-perftools-dev g++-4.4 gcc-4.4
