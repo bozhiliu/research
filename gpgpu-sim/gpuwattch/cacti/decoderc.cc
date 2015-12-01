@@ -42,7 +42,7 @@
 using namespace std;
 
 
-Decoder::Decoder(
+Decoder_C::Decoder_C(
     int    _num_dec_signals,
     bool   flag_way_select,
     double _C_ld_dec_out,
@@ -112,7 +112,7 @@ Decoder::Decoder(
 
 
 
-void Decoder::compute_widths()
+void Decoder_C::compute_widths()
 {
   double F;
   double p_to_n_sz_ratio = pmos_to_nmos_sz_ratio(is_dram, is_wl_tr);
@@ -152,7 +152,7 @@ void Decoder::compute_widths()
 
 
 
-void Decoder::compute_area()
+void Decoder_C::compute_area()
 {
   double cumulative_area = 0;
   double cumulative_curr = 0;  // cumulative leakage current
@@ -188,7 +188,7 @@ void Decoder::compute_area()
 
 
 
-double Decoder::compute_delays(double inrisetime)
+double Decoder_C::compute_delays(double inrisetime)
 {
   if (exist)
   {
@@ -254,7 +254,7 @@ double Decoder::compute_delays(double inrisetime)
   }
 }
 
-void Decoder::leakage_feedback(double temperature)
+void Decoder_C::leakage_feedback(double temperature)
 {
   double cumulative_curr = 0;  // cumulative leakage current
   double cumulative_curr_Ig = 0;  // cumulative leakage current
@@ -285,7 +285,7 @@ void Decoder::leakage_feedback(double temperature)
 
 PredecBlk::PredecBlk(
     int    num_dec_signals,
-    Decoder * dec_,
+    Decoder_C * dec_,
     double C_wire_predec_blk_out,
     double R_wire_predec_blk_out_,
     int    num_dec_per_predec,

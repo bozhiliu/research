@@ -151,7 +151,7 @@ Mat::Mat(const DynamicParameter & dyn_p)
   }
 
 
-  row_dec = new Decoder(
+  row_dec = new Decoder_C(
       num_dec_signals,
       false,
       subarray.C_wl,
@@ -164,7 +164,7 @@ Mat::Mat(const DynamicParameter & dyn_p)
 //  {
 //    row_dec->exist = true;
 //  }
-  bit_mux_dec = new Decoder(
+  bit_mux_dec = new Decoder_C(
       deg_bl_muxing,// This number is 1 for FA or CAM
       false,
       C_ld_bit_mux_dec_out,
@@ -173,7 +173,7 @@ Mat::Mat(const DynamicParameter & dyn_p)
       is_dram,
       false,
       camFlag? cam_cell:cell);
-  sa_mux_lev_1_dec = new Decoder(
+  sa_mux_lev_1_dec = new Decoder_C(
       dp.deg_senseamp_muxing_non_associativity, // This number is 1 for FA or CAM
       dp.number_way_select_signals_mat ? true : false,//only sa_mux_lev_1_dec needs way select signal
       C_ld_sa_mux_lev_1_dec_out,
@@ -182,7 +182,7 @@ Mat::Mat(const DynamicParameter & dyn_p)
       is_dram,
       false,
       camFlag? cam_cell:cell);
-  sa_mux_lev_2_dec = new Decoder(
+  sa_mux_lev_2_dec = new Decoder_C(
       dp.Ndsam_lev_2, // This number is 1 for FA or CAM
       false,
       C_ld_sa_mux_lev_2_dec_out,

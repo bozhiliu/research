@@ -59,13 +59,14 @@ enum Scheduler_type {
 	ReservationStation
 };
 
+namespace gpuw{
 enum cache_level {
     L2,
     L3,
     L1Directory,
     L2Directory
 };
-
+}
 enum MemoryCtrl_type {
 	MC,    //memory controller
 	FLASHC //flash controller

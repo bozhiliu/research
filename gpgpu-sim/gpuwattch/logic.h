@@ -119,7 +119,7 @@ public:
 	enum Device_ty device_ty;
 	enum Core_type core_ty;
 
-	Decoder * final_dec;
+	Decoder_C * final_dec;
 	Predec *  pre_dec;
 
 	statsDef       tdp_stats;

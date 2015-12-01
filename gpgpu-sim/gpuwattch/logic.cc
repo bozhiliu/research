@@ -995,7 +995,7 @@ inst_decoder::inst_decoder(
 			C_driver_load = 1024*gate_C(load_nmos_width + load_pmos_width, 0, is_dram); //TODO: this number 1024 needs to be revisited
 			R_wire_load   = 3000*l_ip.F_sz_um * g_tp.wire_outside_mat.R_per_um;
 
-			final_dec = new Decoder(
+			final_dec = new Decoder_C(
 					num_decoded_signals,
 					false,
 					C_driver_load,

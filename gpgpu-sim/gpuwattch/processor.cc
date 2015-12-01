@@ -184,7 +184,7 @@ Processor::Processor(ParseXML *XML_interface)
   if (numL3 >0)
 	  for (i = 0;i < numL3; i++)
 	  {
-		  l3array.push_back(new SharedCache(XML,i, &interface_ip, L3));
+		  l3array.push_back(new SharedCache(XML,i, &interface_ip, gpuw::L3));
 		  l3array[i]->computeEnergy();
 		  l3array[i]->computeEnergy(false);
 		  if (procdynp.homoL3){
@@ -213,7 +213,7 @@ Processor::Processor(ParseXML *XML_interface)
   if (numL1Dir >0)
 	  for (i = 0;i < numL1Dir; i++)
 	  {
-		  l1dirarray.push_back(new SharedCache(XML,i, &interface_ip, L1Directory));
+		  l1dirarray.push_back(new SharedCache(XML,i, &interface_ip, gpuw::L1Directory));
 		  l1dirarray[i]->computeEnergy();
 		  l1dirarray[i]->computeEnergy(false);
 		  if (procdynp.homoL1Dir){
@@ -242,7 +242,7 @@ Processor::Processor(ParseXML *XML_interface)
   if (numL2Dir >0)
 	  for (i = 0;i < numL2Dir; i++)
 	  {
-		  l2dirarray.push_back(new SharedCache(XML,i, &interface_ip, L2Directory));
+		  l2dirarray.push_back(new SharedCache(XML,i, &interface_ip, gpuw::L2Directory));
 		  l2dirarray[i]->computeEnergy();
 		  l2dirarray[i]->computeEnergy(false);
 		  if (procdynp.homoL2Dir){

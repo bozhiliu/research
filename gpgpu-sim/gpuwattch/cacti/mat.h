@@ -50,10 +50,10 @@ class Mat : public Component
     const DynamicParameter & dp;
 
     // TODO: clean up pointers and powerDefs below
-    Decoder * row_dec;
-    Decoder * bit_mux_dec;
-    Decoder * sa_mux_lev_1_dec;
-    Decoder * sa_mux_lev_2_dec;
+    Decoder_C * row_dec;
+    Decoder_C * bit_mux_dec;
+    Decoder_C * sa_mux_lev_1_dec;
+    Decoder_C * sa_mux_lev_2_dec;
     PredecBlk * dummy_way_sel_predec_blk1;
     PredecBlk * dummy_way_sel_predec_blk2;
     PredecBlkDrv * way_sel_drv1;

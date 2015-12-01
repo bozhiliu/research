@@ -44,7 +44,7 @@ class SharedCache :public Component{
     ParseXML * XML;
     int ithCache;
 	InputParameter interface_ip;
-	enum cache_level cacheL;
+	enum gpuw::cache_level cacheL;
     DataCache unicache;//Shared cache
     CacheDynParam cachep;
     statsDef   homenode_tdp_stats;
@@ -58,7 +58,7 @@ class SharedCache :public Component{
     double scktRatio, executionTime;
     //   Component L2Tot, cc, cc1, ccTot;
 
-    SharedCache(ParseXML *XML_interface, int ithCache_, InputParameter* interface_ip_,enum cache_level cacheL_ =L2);
+    SharedCache(ParseXML *XML_interface, int ithCache_, InputParameter* interface_ip_,enum gpuw::cache_level cacheL_ =gpuw::L2);
     void set_cache_param();
 	void computeEnergy(bool is_tdp=true);
     void displayEnergy(uint32_t indent = 0,bool is_tdp=true);

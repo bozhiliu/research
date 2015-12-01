@@ -1,5 +1,7 @@
 Import('*')
 
+
+env.Append(CCFLAGS=['-DNTHREDS=4'])
 Source('arbiter.cc', Werror = False)
 Source('area.cc', Werror = False)
 Source('bank.cc', Werror = False)
@@ -20,4 +22,4 @@ Source('subarray.cc', Werror = False)
 Source('technology.cc', Werror = False)
 Source('uca.cc', Werror = False)
 Source('Ucache.cc', Werror = False)
-#Source('wire.cc', Werror = False)
+Source('wire.cc', Werror = False)

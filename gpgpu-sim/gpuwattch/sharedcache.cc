@@ -47,7 +47,7 @@
 
 
 
-SharedCache::SharedCache(ParseXML* XML_interface, int ithCache_, InputParameter* interface_ip_, enum cache_level cacheL_)
+SharedCache::SharedCache(ParseXML* XML_interface, int ithCache_, InputParameter* interface_ip_, enum gpuw::cache_level cacheL_)
 :XML(XML_interface),
  ithCache(ithCache_),
  interface_ip(*interface_ip_),
@@ -60,7 +60,7 @@ SharedCache::SharedCache(ParseXML* XML_interface, int ithCache_, InputParameter*
   enum Device_ty device_t;
   enum Core_type  core_t;
   double size, line, assoc, banks;
-  if (cacheL==L2 && XML->sys.Private_L2)
+  if (cacheL==gpuw::L2 && XML->sys.Private_L2)
   {
 	  device_t=Core_device;
       core_t = (enum Core_type)XML->sys.core[ithCache].machine_type;
@@ -91,7 +91,7 @@ SharedCache::SharedCache(ParseXML* XML_interface, int ithCache_, InputParameter*
   line                             = cachep.blockW;
   assoc                            = cachep.assoc;
   banks                            = cachep.nbanks;
-  if ((cachep.dir_ty==ST&& cacheL==L1Directory)||(cachep.dir_ty==ST&& cacheL==L2Directory))
+  if ((cachep.dir_ty==ST&& cacheL==gpuw::L1Directory)||(cachep.dir_ty==ST&& cacheL==gpuw::L2Directory))
   {
 	  assoc = 0;
 	  tag   = XML->sys.physical_address_width + EXTRA_TAG_BITS;
@@ -146,7 +146,7 @@ SharedCache::SharedCache(ParseXML* XML_interface, int ithCache_, InputParameter*
   interface_ip.force_cache_config  =false;
 
 
-  if (!((cachep.dir_ty==ST&& cacheL==L1Directory)||(cachep.dir_ty==ST&& cacheL==L2Directory)))
+  if (!((cachep.dir_ty==ST&& cacheL==gpuw::L1Directory)||(cachep.dir_ty==ST&& cacheL==gpuw::L2Directory)))
   {
 	  tag							   = XML->sys.physical_address_width + EXTRA_TAG_BITS;
 	  data							   = (XML->sys.physical_address_width) + int(ceil(log2(size/line))) + unicache.caches->l_ip.line_sz;
@@ -603,7 +603,7 @@ void SharedCache::computeEnergy(bool is_tdp)
 	double homenode_data_access = (cachep.dir_ty==SBT)? 0.9:1.0;
 	if (is_tdp)
 	{
-		if (!((cachep.dir_ty==ST&& cacheL==L1Directory)||(cachep.dir_ty==ST&& cacheL==L2Directory)))
+		if (!((cachep.dir_ty==ST&& cacheL==gpuw::L1Directory)||(cachep.dir_ty==ST&& cacheL==gpuw::L2Directory)))
 		{
 			//init stats for Peak
 			unicache.caches->stats_t.readAc.access  = .67*unicache.caches->l_ip.num_rw_ports*cachep.duty_cycle*homenode_data_access;
@@ -657,7 +657,7 @@ void SharedCache::computeEnergy(bool is_tdp)
 	else
 	{
 		//init stats for runtime power (RTP)
-		if (cacheL==L2)
+		if (cacheL==gpuw::L2)
 		{
 		  //Copy stats from l1 to L1[0]
 		  XML->sys.L2[ithCache].total_accesses=XML->sys.l2.total_accesses;
@@ -686,7 +686,7 @@ void SharedCache::computeEnergy(bool is_tdp)
 			 homenode_rtp_stats.writeAc.hit    = homenode_rtp_stats.writeAc.access -	homenode_rtp_stats.writeAc.miss;
 		  }
 		}
-		else if (cacheL==L3)
+		else if (cacheL==gpuw::L3)
 		{
 		  unicache.caches->stats_t.readAc.access  = XML->sys.L3[ithCache].read_accesses;
 		  unicache.caches->stats_t.readAc.miss    = XML->sys.L3[ithCache].read_misses;
@@ -706,7 +706,7 @@ void SharedCache::computeEnergy(bool is_tdp)
 			 homenode_rtp_stats.writeAc.hit    = homenode_rtp_stats.writeAc.access -	homenode_rtp_stats.writeAc.miss;
 		  }
 		}
-		else if (cacheL==L1Directory)
+		else if (cacheL==gpuw::L1Directory)
 		{
 		  unicache.caches->stats_t.readAc.access  = XML->sys.L1Directory[ithCache].read_accesses;
 		  unicache.caches->stats_t.readAc.miss    = XML->sys.L1Directory[ithCache].read_misses;
@@ -716,7 +716,7 @@ void SharedCache::computeEnergy(bool is_tdp)
 		  unicache.caches->stats_t.writeAc.hit    = unicache.caches->stats_t.writeAc.access -	unicache.caches->stats_t.writeAc.miss;
 		  unicache.caches->rtp_stats = unicache.caches->stats_t;
 		}
-		else if (cacheL==L2Directory)
+		else if (cacheL==gpuw::L2Directory)
 		{ //cout<<"L2 directory"<<endl;
 		  //Copy stats from l1 to L1[0]
 		  //XML->sys.L2[ithCache].total_accesses=XML->sys.l2.total_accesses;
@@ -734,7 +734,7 @@ void SharedCache::computeEnergy(bool is_tdp)
 		  unicache.caches->stats_t.writeAc.hit    = unicache.caches->stats_t.writeAc.access -	unicache.caches->stats_t.writeAc.miss;
 		  unicache.caches->rtp_stats = unicache.caches->stats_t;
 		}
-		if (!((cachep.dir_ty==ST&& cacheL==L1Directory)||(cachep.dir_ty==ST&& cacheL==L2Directory)))
+		if (!((cachep.dir_ty==ST&& cacheL==gpuw::L1Directory)||(cachep.dir_ty==ST&& cacheL==gpuw::L2Directory)))
 		{   //Assuming write back and write-allocate cache
 
 		  unicache.missb->stats_t.readAc.access  = unicache.caches->stats_t.writeAc.miss ;
@@ -780,7 +780,7 @@ void SharedCache::computeEnergy(bool is_tdp)
 
 	unicache.power_t.reset();
    unicache.rt_power.reset();
-	if (!((cachep.dir_ty==ST&& cacheL==L1Directory)||(cachep.dir_ty==ST&& cacheL==L2Directory)))
+	if (!((cachep.dir_ty==ST&& cacheL==gpuw::L1Directory)||(cachep.dir_ty==ST&& cacheL==gpuw::L2Directory)))
 	{ 
 
 	  unicache.power_t.readOp.dynamic	+= (unicache.caches->stats_t.readAc.hit*unicache.caches->local_result.power.readOp.dynamic+
@@ -819,7 +819,7 @@ void SharedCache::computeEnergy(bool is_tdp)
 	if (is_tdp)
 	{
 	  unicache.power = unicache.power_t + (unicache.caches->local_result.power)*pppm_lkg;
-	  if (!((cachep.dir_ty==ST&& cacheL==L1Directory)||(cachep.dir_ty==ST&& cacheL==L2Directory)))
+	  if (!((cachep.dir_ty==ST&& cacheL==gpuw::L1Directory)||(cachep.dir_ty==ST&& cacheL==gpuw::L2Directory)))
 	  {
 		 unicache.power = unicache.power+
 			(unicache.missb->local_result.power +
@@ -835,7 +835,7 @@ void SharedCache::computeEnergy(bool is_tdp)
 	{
 
 	  unicache.rt_power = unicache.power_t + (unicache.caches->local_result.power)*pppm_lkg;
-	  if (!((cachep.dir_ty==ST&& cacheL==L1Directory)||(cachep.dir_ty==ST&& cacheL==L2Directory)))
+	  if (!((cachep.dir_ty==ST&& cacheL==gpuw::L1Directory)||(cachep.dir_ty==ST&& cacheL==gpuw::L2Directory)))
 	  {
 		 unicache.rt_power = unicache.rt_power +
 		  (unicache.missb->local_result.power +
@@ -1072,7 +1072,7 @@ void SharedCache::displayEnergy(uint32_t indent,bool is_tdp)
 
 void SharedCache::set_cache_param()
 {
-  if (cacheL==L2)
+  if (cacheL==gpuw::L2)
   {
 	 cachep.name = "L2";
 	 cachep.clockRate       = XML->sys.L2[ithCache].clockrate;
@@ -1103,7 +1103,7 @@ void SharedCache::set_cache_param()
 		cachep.dir_duty_cycle  = XML->sys.L2[ithCache].dir_duty_cycle;
 	 }
   }
-  else if (cacheL==L3)
+  else if (cacheL==gpuw::L3)
   {
 	 cachep.name = "L3";
 	 cachep.clockRate       = XML->sys.L3[ithCache].clockrate;
@@ -1134,7 +1134,7 @@ void SharedCache::set_cache_param()
 		cachep.dir_duty_cycle  = XML->sys.L2[ithCache].dir_duty_cycle;
 	 }
   }
-  else if (cacheL==L1Directory)
+  else if (cacheL==gpuw::L1Directory)
   {
 	 cachep.name = "First Level Directory";
 	 cachep.dir_ty = (enum Dir_type) XML->sys.L1Directory[ithCache].Directory_type;
@@ -1157,7 +1157,7 @@ void SharedCache::set_cache_param()
 	 cachep.wbb_size      = XML->sys.L1Directory[ithCache].buffer_sizes[3];
 	 cachep.duty_cycle    = XML->sys.L1Directory[ithCache].duty_cycle;
   }
-  else if (cacheL==L2Directory)
+  else if (cacheL==gpuw::L2Directory)
   {
 	 cachep.name = "Second Level Directory";
 	 cachep.dir_ty = (enum Dir_type) XML->sys.L2Directory[ithCache].Directory_type;

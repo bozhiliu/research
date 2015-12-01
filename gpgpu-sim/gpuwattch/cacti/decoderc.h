@@ -41,10 +41,10 @@
 using namespace std;
 
 
-class Decoder : public Component
+class Decoder_C : public Component
 {
   public:
-    Decoder(
+    Decoder_C(
         int _num_dec_signals,
         bool flag_way_select,
         double _C_ld_dec_out,
@@ -84,14 +84,14 @@ class PredecBlk : public Component
  public:
   PredecBlk(
       int num_dec_signals,
-      Decoder * dec,
+      Decoder_C * dec,
       double C_wire_predec_blk_out,
       double R_wire_predec_blk_out,
       int    num_dec_per_predec,
       bool   is_dram_,
       bool   is_blk1);
 
-  Decoder * dec;
+  Decoder_C * dec;
   bool exist;
   int number_input_addr_bits;
   double C_ld_predec_blk_out;
@@ -165,7 +165,7 @@ class PredecBlkDrv : public Component
   powerDef power_nand3_path;
 
   PredecBlk * blk;
-  Decoder   * dec;
+  Decoder_C   * dec;
   bool  is_dram_;
   int   way_select;
 
